@@ -1,5 +1,6 @@
 from django.contrib import admin
-from blog.models import Post, Tag, Comment
+from blog.models import Post, Tag, Comment, AuthorProfile
+
 
 # Register your models here.
 
@@ -14,3 +15,6 @@ class PostAdmin(admin.ModelAdmin):
 admin.site.register(Tag)
 admin.site.register(Post, PostAdmin)
 admin.site.register(Comment)
+admin.site.register(AuthorProfile)
+
+

@@ -1,6 +1,6 @@
 {% extends 'base.html' %}
 {% load static %}
-{% load blog_extras  %}
+{% load blog_extras cache %}
 
 
 {% block content %}
@@ -54,7 +54,11 @@
             <h3 class="h6">Latest Posts</h3>
           </header>
           <div class="blog-posts">
+            {% cache 3600 recent_posts %}
             {% recent_posts post %}
+            {% endcache %}
+            
+         
         </div>
         <!-- Widget [Categories Widget]-->
         <div class="widget categories">
