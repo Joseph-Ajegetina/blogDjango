@@ -1,5 +1,6 @@
 from django import template
 from django.contrib.auth import get_user_model
+from blog.models import Post
 user_model = get_user_model()
 register = template.Library()
 
@@ -14,3 +15,16 @@ def author_details(author):
     else:
         name = f"{author.username}"
     return name
+
+
+
+@register.inclusion_tag("blog/post-list.html")
+def recent_posts(*args):
+    if args:
+        posts = Post.objects.exclude(pk=args[0].pk)[:5]
+        return {"posts": posts}
+    else:
+        posts = Post.objects.all()[:5]
+        return {"posts": posts}
+
+

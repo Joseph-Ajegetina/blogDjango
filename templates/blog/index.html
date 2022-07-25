@@ -1,8 +1,9 @@
 {% extends 'base.html' %}
 {% load static %}
 {% load blog_extras %}
-{% block content %}
 
+
+{% block content %}
 <div class="container">
     <div class="row">
       <!-- Latest Posts -->
@@ -17,15 +18,15 @@
                 <div class="post-meta d-flex justify-content-between">
                   <div class="date meta-last">{{ post.published_at|date:"M, d Y"}}</div>
                   <div class="category"><a href="#">Business</a></div>
-                </div><a href="post.html">
+                </div><a href="{% url 'blog-post-detail' post.slug %}">
                   <h3 class="h4">{{ post.title }}</h3></a>
-                <p class="text-muted">{{ post.summary }}</p>
-                 <p><a href="#" class="btn btn-dark">Read More</a>({{ post.content|wordcount}} words)</p>
+                <p class="text-muted">{{ post.summary }}... ({{ post.content|wordcount}} words)</p>
+                 <p><a href="{% url 'blog-post-detail' post.slug %}" class="btn btn-dark">Read More</a></p>
                 <footer class="post-footer d-flex align-items-center"><a href="#" class="author d-flex align-items-center flex-wrap">
                     <div class="avatar"><img src="{% static 'img/avatar-3.jpg' %} " alt="..." class="img-fluid"></div>
                     <div class="title"><span>{{ post.author|author_details }}</span></div></a>
                   <div class="date"><i class="icon-clock"></i> </div>
-                  <div class="comments meta-last"><i class="icon-comment"></i>12</div>
+                  <div class="comments meta-last"><i class="icon-comment"></i>{{ post.comments.all|length }}</div>
                 </footer>
               </div>
             </div>
@@ -63,34 +64,10 @@
           <header>
             <h3 class="h6">Latest Posts</h3>
           </header>
-          <div class="blog-posts"><a href="#">
-              <div class="item d-flex align-items-center">
-                <div class="image"><img src="{% static 'img/small-thumbnail-1.jpg' %}" alt="..." class="img-fluid"></div>
-                <div class="title"><strong>Alberto Savoia Can Teach You About</strong>
-                  <div class="d-flex align-items-center">
-                    <div class="views"><i class="icon-eye"></i> 500</div>
-                    <div class="comments"><i class="icon-comment"></i>12</div>
-                  </div>
-                </div>
-              </div></a><a href="#">
-              <div class="item d-flex align-items-center">
-                <div class="image"><img src="{% static 'img/small-thumbnail-2.jpg' %}" alt="..." class="img-fluid"></div>
-                <div class="title"><strong>Alberto Savoia Can Teach You About</strong>
-                  <div class="d-flex align-items-center">
-                    <div class="views"><i class="icon-eye"></i> 500</div>
-                    <div class="comments"><i class="icon-comment"></i>12</div>
-                  </div>
-                </div>
-              </div></a><a href="#">
-              <div class="item d-flex align-items-center">
-                <div class="image"><img src="{% static 'img/small-thumbnail-3.jpg' %} " alt="..." class="img-fluid"></div>
-                <div class="title"><strong>Alberto Savoia Can Teach You About</strong>
-                  <div class="d-flex align-items-center">
-                    <div class="views"><i class="icon-eye"></i> 500</div>
-                    <div class="comments"><i class="icon-comment"></i>12</div>
-                  </div>
-                </div>
-              </div></a></div>
+          
+          <div class="blog-posts">
+            {% recent_posts %}
+          </div>
         </div>
         <!-- Widget [Categories Widget]-->
         <div class="widget categories">
