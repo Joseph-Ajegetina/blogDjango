@@ -1,0 +1,35 @@
+{% load crispy_forms_tags %}
+
+<div class="post-comments">
+    <header>
+      <h3 class="h6">Post Comments<span class="no-of-comments">({{ post.comments.all|length }})</span></h3>
+    </header>
+    {% for comment in post.comments.all %}
+    <div class="comment">
+      <div class="comment-header d-flex justify-content-between">
+        <div class="user d-flex align-items-center">
+          <div class="image"><img src="img/user.svg" alt="..." class="img-fluid rounded-circle"></div>
+          <div class="title"><strong>{{ comment.creator }}</strong><span class="date">{{ comment.created_at|date:"M, d Y h:i" }}</span></div>
+        </div>
+      </div>
+      <div class="comment-body">
+        <p>{{ comment.content }}</p>
+      </div>
+    </div>
+    {% endfor %}
+   
+
+  </div>
+  {% if request.user.is_active %}
+  <div class="add-comment">
+    <header>
+      <h3 class="h6">Leave a reply</h3>
+    </header>
+    <form class="commenting-form" method="post"  enctype="multipart/form-data">
+      {% csrf_token %}
+      {{ comment_form|crispy }}
+      <button type="submit" class="btn btn-secondary">Submit Comment</button>
+    </form>
+  </div>
+  
+  {% endif %}
