@@ -36,18 +36,17 @@ class Dev(Configuration):
     # Application definition
 
     INSTALLED_APPS = [
+        'blango_auth',
         'django.contrib.admin',
         'django.contrib.auth',
         'django.contrib.contenttypes',
         'django.contrib.sessions',
         'django.contrib.messages',
         'django.contrib.staticfiles',
-        'blango_auth',
         'blog',
         "debug_toolbar",
         'crispy_forms',
-        'crispy_bootstrap5',
-        
+        'crispy_bootstrap5'
     ]
 
     MIDDLEWARE = [
@@ -114,11 +113,15 @@ class Dev(Configuration):
         'django.contrib.auth.hashers.PBKDF2PasswordHasher',
         'django.contrib.auth.hashers.PBKDF2SHA1PasswordHasher',
         'django.contrib.auth.hashers.BCryptSHA256PasswordHasher',
-        ]
+    ]
     # Internationalization
     # https://docs.djangoproject.com/en/4.0/topics/i18n/
+    LOGOUT_REDIRECT_URL = "/"
+    LOGIN_REDIRECT_URL = "/"
 
     AUTH_USER_MODEL = "blango_auth.User"
+
+
 
     LANGUAGE_CODE = 'en-us'
 
@@ -141,6 +144,8 @@ class Dev(Configuration):
 
     CRISPY_ALLOWED_TEMPLATE_PACKS = "bootstrap5"
     CRISPY_TEMPLATE_PACK = "bootstrap5"
+
+    EMAIL_BACKEND = "django.core.mail.backends.console.EmailBackend"
 
 
     # logging

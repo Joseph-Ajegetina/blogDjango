@@ -31,7 +31,7 @@ class BlangoUserManager(UserManager):
 # Create your models here.
 class User(AbstractUser):
     username = None
-    email = models.EmailField(_("email address"),unique=True,)
+    email = models.EmailField(("email address"),unique=True,)
     objects = BlangoUserManager()
     USERNAME_FIELD = "email"
     REQUIRED_FIELDS = []

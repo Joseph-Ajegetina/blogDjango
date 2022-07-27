@@ -12,7 +12,7 @@ logger = logging.getLogger(__name__)
 
 # Create your views here.
 
-@cache_page(300)
+# @cache_page(300)
 @vary_on_cookie
 def index(request):
     posts = Post.objects.filter(published_at__lte=timezone.now())
